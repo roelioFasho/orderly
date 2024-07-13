@@ -8,5 +8,3 @@ def index(request):
 
 
 
-def index2(request):
-    return HttpResponse('<h1>hello KARI</h1>')
