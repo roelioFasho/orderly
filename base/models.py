@@ -36,3 +36,22 @@ class SubCategory(models.Model):
 
     class Meta:
         verbose_name_plural = 'Subcategories'
+
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    price = models.DecimalField
+    date_posted = models.DateField
+    usage = models.CharField(max_length=600)
+    quantity = models.IntegerField
+    image = models.ImageField(upload_to='uploads/product/')
+    # reviews = 
+
+
+
+
+    def __str__(self):
+        return self.name
