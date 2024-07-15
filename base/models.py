@@ -50,6 +50,9 @@ class Product(models.Model):
     image = models.ImageField(upload_to='uploads/product/')
     # reviews = 
 
+    # out_of_sale
+    # is_sale
+
 
 
 
