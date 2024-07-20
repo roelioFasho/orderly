@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -49,6 +49,7 @@ class Product(models.Model):
     quantity = models.IntegerField
     image = models.ImageField(upload_to='uploads/product/')
     # reviews = 
+    # date_posted = 
 
     # out_of_sale
     # is_sale
