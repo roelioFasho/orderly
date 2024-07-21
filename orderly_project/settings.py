@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'base',
     'members',
+    'cart',
     # 'base.apps.BaseConfig',  # Ensure this is the correct path
     # 'profile.apps.RegisterConfig',
     
