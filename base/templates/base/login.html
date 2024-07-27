@@ -31,11 +31,12 @@
             border-radius: 5px;
         }
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
+            margin-top: 15px;
+            
         }
-        .product {
+        .product-item {
+            width: 250px;
+            height: 320px;
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -44,7 +45,8 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         .product img {
-            max-width: 100%;
+            width: 200px;
+            aspect-ratio: 1 / 1;
             height: auto;
         }
         .product h2 {
@@ -72,31 +74,39 @@
         <div class="product">
             {% for product in products %}
                 <div class="product-item">
-                <h5>{{ product.name }}</h5>
-                <p>{{ product.description }}</p>
-                <p>{{ product.date_posted }}</p>
-                <p>${{ product.price }}</p>
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 100px;">
+                    {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 100px;">
+                            
+                    {% endif %}
+                    <h5>{{ product.name }}</h5>
+                    <p>{{ product.usage }}</p>
+                    <p>{{ product.date_posted }}</p>
+                    {% if product.is_discount %}
+                        <p>was: {{ product.get_currency_display }}  {{ product.price }}</p>
+                        <p>is: {{ product.currency}}  {{ product.new_price }}</p>
+
+                    {% else %}
+                        <p>{{ product.get_currency_display }}  {{ product.price }}</p>
+                        <p>{{ product.currency}}  {{ product.price }}</p>
+
+                    {% endif %}
+
+                    {% if product.out_of_sale %}
+                        <p>PRODUCT IS OUT OF STOCK!</p>
                     
-                {% endif %}
-                <button> Add to Cart</button>
-                <button style="font-size:24px">Button <i class="fa fa-heart"></i>
-            <!-- <img src="game1.jpg" alt="Game 1">
-            <h2>Game Title 1</h2>
-            <p>Description of Game 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>Price: $49.99</p>
-            <button>Add to Cart</button> -->
+
+                    {% endif %}
+                        
+
+                    <button> Add to Cart</button>
+                    <button>add to wishlist</button>
+
+                </div>
+
             {% endfor %}
         </div>
 
-        <div class="product">
-            <img src="game2.jpg" alt="Game 2">
-            <h2>Game Title 2</h2>
-            <p>Description of Game 2. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>Price: $59.99</p>
-            <button>Add to Cart</button>
-        </div>
+
     </div>
 </body>
 </html>

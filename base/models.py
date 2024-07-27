@@ -49,26 +49,46 @@ def validate_non_negative(value):
         )
 
 
-class Currency(models.TextChoices):
-    pass
+
 class Product(models.Model):
+    class Currency(models.TextChoices):
+        EUR = 'EUR', '€'
+        USD = 'USD', '$'
+        ALL = 'ALL', 'L'
     name = models.CharField(max_length=100)
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=300)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     price = models.DecimalField(default=0, decimal_places=2, max_digits=6, validators=[validate_non_negative])
-    qurrency = models
+    new_price = models.DecimalField(default=0, null=True, decimal_places=2, max_digits=6)
+    discount_percentage = models.IntegerField(null=True)
+    currency = models.CharField(max_length=5, choices=Currency.choices, default=Currency.ALL)
+
     date_posted = models.DateField(default=timezone.now)
     usage = models.CharField(max_length=600)
-    quantity = models.IntegerField(default=1, null=True, blank=True, validators=[validate_non_negative])
+    quantity = models.PositiveIntegerField(default=1, null=True, blank=True, validators=[validate_non_negative])
     image = models.ImageField(blank=True, null=True, upload_to='uploads/product/')
-    # qurrency = 
-    # reviews = 
+    
+    is_discount = models.BooleanField(default= False) 
+    out_of_sale = models.BooleanField(default=False)
 
-    # out_of_sale
-    # is_sale
+
+    @property
+    def discount_percentage(self):
+        if self.price and self.new_price:
+            discount_amount = self.price - self.new_price
+            return round((discount_amount / self.price) * 100)
+        return None
+
+    def save(self, *args, **kwargs):
+        if self.quantity == 0:
+            self.out_of_sale = True
+        else:
+            self.out_of_sale = False
+        super().save(*args, **kwargs)
 
 
 
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
+    
