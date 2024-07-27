@@ -1,9 +1,53 @@
 {% extends 'base/base.html' %}
 
-{% block content %}
-    <h1>home2</h1>
-    <br><br><br>
+{% block title %}Home{% endblock %}
 
+{% block content %}
+   
+    <h1>home2</h1>
+    <br><br><br><br><br><br><br><br><br><br><br>
+<!-- 
+    <div class="product">
+        {% for product in products %}
+        <div class="product-item">
+            <h5>{{ product.name }}</h5>
+            <p>{{ product.description }}</p>
+            <p>{{ product.date_posted }}</p>
+            <p>${{ product.price }}</p>
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 100px;">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <h1 id="about">about</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+        Vel nam voluptate commodi voluptates dolores ullam quidem quam fuga nesciunt beatae eos itaque laboriosam at odio omnis, 
+        sit praesentium iusto et?</p>
+    
+
+
+
+    <br><br><br><br><br><br><br><br><br><br><br>
+
+    <h1 id="contact">contact</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+        Vel nam voluptate commodi voluptates dolores ullam quidem quam fuga nesciunt beatae eos itaque laboriosam at odio omnis, 
+        sit praesentium iusto et?</p>
+     -->
+
+     <h1 id="about">about</h1>
+     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+        Vel nam voluptate commodi voluptates dolores ullam quidem quam fuga nesciunt beatae eos itaque laboriosam at odio omnis, 
+        sit praesentium iusto et?</p>
+
+    <br><br><br><br><br><br><br><br>
+
+    <h1 id="contact">contact</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+        Vel nam voluptate commodi voluptates dolores ullam quidem quam fuga nesciunt beatae eos itaque laboriosam at odio omnis, 
+        sit praesentium iusto et?</p>
 {% endblock %}
 
 

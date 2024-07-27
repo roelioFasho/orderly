@@ -1,16 +1,172 @@
 
 
-<nav>
-    <ul>
+<header>
+    <h1>Game Store</h1>
+</header>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Consoles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Accessories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <!-- Space for the search bar -->
+                <form class="d-flex me-auto">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+
+                <div class="icons d-flex">
+                    <a href="{% url 'wishlist' %}" class="btn btn-sm btn-outline-dark me-2">
+                        <i class="fa fa-heart"></i> <!-- Font Awesome heart icon -->
+                    </a>
+                    <a href="{% url 'login' %}" class="btn btn-sm btn-outline-dark me-2">
+                        <i class="far fa-user-circle"></i> <!-- Font Awesome user circle icon -->
+                    </a>
+                    <a href="{% url 'cart' %}" class="btn btn-sm btn-outline-dark">
+                        <i class="bi-cart-fill me-1"></i>
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <!-- <header>
+        <h1>Game Store</h1>
+    </header>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Games</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Consoles</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Accessories</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+        </li>
         {% if user.is_authenticated %}
-            <li><a href="{% url 'logout' %}">logout</a></li>
-
-    {% else %}
-        <li><a href="{% url 'login' %}">login</a></li>
-    {% endif %}
-        
-
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% endif %}
     </ul>
-    <h2>navbar</h2>
+
+    <div class="icons">
+        <!-- wishlist --
+            <a href="{% url 'wishlist' %}" class="btn btn-sm btn-outline-dark">
+                <i class="fa fa-heart"></i> <!-- Font Awesome heart icon --
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-sm btn-outline-dark">
+                <i class='far fa-user-circle'>
+                </i>
+            </a> 
     
+            <a href="{% url 'cart' %}" class="btn btn-sm btn-outline-dark">
+                <i class="bi-cart-fill me-1"></i>Cart
+                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
+            </a>
+    
+    </div> -->
+
+
+<!-- 
+    <a href="{% url 'home' %}">Home</a>
+    <a href="#about">About</a>
+    <a href="#">Games</a>
+    <a href="#">Consoles</a>
+    <a href="#">Accessories</a>
+    <a href="#">Contact</a>
+     {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">logout</a>
+    {% endif %} -->
+
+<!-- 
+    <div class="icons">
+    <!-- wishlist --
+        <a href="{% url 'wishlist' %}" class="btn btn-sm btn-outline-dark">
+            <i class="fa fa-heart"></i> <!-- Font Awesome heart icon --
+        </a>
+        <a href="{% url 'login' %}" class="btn btn-sm btn-outline-dark">
+            <i class='far fa-user-circle'>
+            </i>
+        </a> 
+
+        <a href="{% url 'cart' %}" class="btn btn-sm btn-outline-dark">
+            <i class="bi-cart-fill me-1"></i>Cart
+            <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
+        </a>
+
+    </div>     -->
+
+        <!-- <li><a href="{% url 'home' %}">home</a></li>
+        <li><a href="#about">about</a></li>
+        <li><a href="#contact">contact</a></li>
+        <li><a href="{% url 'product' %}">products</a></li> -->
+        
+    
+
+            
+
+        
+        <!-- <form class="d-flex" method=Post
+        action="{}
+
+            {% csrf_token %}
+            
+            <input class="form-control me-2" 
+            type="Search" placeholder="Search Video Games" arial-label=
+            "Search" name ="searched">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form> -->
+
+
+        <!-- cart link
+        <form class="d-flex">                        
+            <a href="{% url 'cart' %}" class="btn btn-sm btn-outline-dark">
+                <i class="bi-cart-fill me-1"></i>Cart
+                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span></a>
+                
+    </form>
+        <!-- wishlist --
+        <a href="{% url 'wishlist' %}" class="btn btn-sm btn-outline-dark">
+            <i class="fa fa-heart"></i> <!-- Font Awesome heart icon --
+        </a>
+        <a href="{% url 'login' %}" class="btn btn-sm btn-outline-dark">
+            <i class='far fa-user-circle'>
+            </i>
+        </a> -->
+    <!-- <button style='font-size:24px'>Button <i class='far fa-user-circle'></i></button> -->
 </nav>
+

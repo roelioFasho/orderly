@@ -1,0 +1,60 @@
+/* Basic styling for demonstration purposes */
+body {
+    /* background-image: url("images/web-bg.jfif"); */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+nav {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #444;
+}
+nav :hover{
+    color: red;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+nav a :hover{
+    color: rgb(250, 250, 250);
+}
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+.product {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.product img {
+    max-width: 100%;
+    height: auto;
+}
+.product h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+.product p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+
+

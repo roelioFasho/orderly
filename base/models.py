@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+from django.utils import timezone
+
 
 class Costumer(models.Model):
     first_name = models.CharField(max_length=50)
@@ -43,11 +45,11 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
-    price = models.DecimalField
-    date_posted = models.DateField
+    price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
+    date_posted = models.DateField(default=timezone.now)
     usage = models.CharField(max_length=600)
     quantity = models.IntegerField
-    image = models.ImageField(upload_to='uploads/product/')
+    image = models.ImageField(blank=True, null=True, upload_to='uploads/product/')
     # reviews = 
     # date_posted = 
 
