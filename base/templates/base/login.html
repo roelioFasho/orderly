@@ -70,12 +70,26 @@
     </nav>
     <div class="container">
         <div class="product">
-            <img src="game1.jpg" alt="Game 1">
+            {% for product in products %}
+                <div class="product-item">
+                <h5>{{ product.name }}</h5>
+                <p>{{ product.description }}</p>
+                <p>{{ product.date_posted }}</p>
+                <p>${{ product.price }}</p>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 100px;">
+                    
+                {% endif %}
+                <button> Add to Cart</button>
+                <button style="font-size:24px">Button <i class="fa fa-heart"></i>
+            <!-- <img src="game1.jpg" alt="Game 1">
             <h2>Game Title 1</h2>
             <p>Description of Game 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <p>Price: $49.99</p>
-            <button>Add to Cart</button>
+            <button>Add to Cart</button> -->
+            {% endfor %}
         </div>
+
         <div class="product">
             <img src="game2.jpg" alt="Game 2">
             <h2>Game Title 2</h2>

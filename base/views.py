@@ -27,10 +27,17 @@ def product_view(request):
     return render(request, "base/product.html")
 
 def product_view2(request):
-    return render(request, "base/login.html")
+    product = Product.objects.filter()
+    return render(request, "base/login.html", {'products':product})
 
 def wish_view(request):
     return render(request, "base/wishlist.html" )
+
+
+def privacy_policy_view(request):
+    return render(request, "base/privacy_policy.html" )
+def terms_service_view(request):
+    return render(request, "base/terms_of_service.html" )
 # def register(request):
 #     pass
     # if request.method == 'POST':

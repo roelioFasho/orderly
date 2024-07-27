@@ -58,3 +58,31 @@ nav a :hover{
 
 
 
+/* login.html css */
+.login-container{
+    height: 500px;
+    width: 400px;
+    margin: auto;
+    background-color: aqua;
+    border-radius: 10px;
+    margin-top: 100px;
+}
+
+.login-container:hover {
+    transform: scale(1.0); /* Scale the div on hover */
+    box-shadow: 0 0 20px 5px rgba(1, 1, 1, 0.7); /* Add white shadow on hover */
+}
+
+
+/* message */
+.messages-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1050;
+    width: auto;
+}
+
+.alert {
+    margin-bottom: 10px;
+}
