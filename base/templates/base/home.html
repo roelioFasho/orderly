@@ -45,7 +45,7 @@
                         <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
                     {% endif %}
                     <h5>{{ product.name }}</h5>
-                    <p>{{ product.usage }}</p>
+                    <p>{{ product.description }}</p>
                     <p>{{ product.date_posted }}</p>
                     {% if product.is_discount %}
                         <p>was: {{ product.get_currency_display }}  {{ product.price }}</p>
