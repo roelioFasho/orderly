@@ -64,7 +64,7 @@ class Product(models.Model):
     currency = models.CharField(max_length=5, choices=Currency.choices, default=Currency.ALL)
 
     date_posted = models.DateField(default=timezone.now)
-    usage = models.CharField(max_length=600)
+    # usage = models.CharField(max_length=600)
     quantity = models.PositiveIntegerField(default=1, null=True, blank=True, validators=[validate_non_negative])
     image = models.ImageField(blank=True, null=True, upload_to='uploads/product/')
     
