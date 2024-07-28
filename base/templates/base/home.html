@@ -42,8 +42,7 @@
             {% for product in products %}
                 <div class="product-item">
                     {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 100px;">
-                            
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
                     {% endif %}
                     <h5>{{ product.name }}</h5>
                     <p>{{ product.usage }}</p>
@@ -65,16 +64,18 @@
                     {% endif %}
                         
 
-                    <a href="{% url 'prove' %}" class="btn btn-sm btn-outline-dark me-2" title="add to wishlist">
+                    
+
+                    <a href="{% url 'wishlist' %}"  data-product-id="{{ product.id }}" id="add-cart" class="btn btn-sm btn-outline-dark me-2" title="add to wishlist">
                         <i class="fa fa-heart"></i> <!-- Font Awesome heart icon -->
                     </a>
                     
-                    <a href="{% url 'cart' %}" class="btn btn-sm btn-outline-dark" title="add to cart">
+                    <a href="{% url 'view_cart' %}" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark" title="add to cart">
                         <i class="bi-cart-fill me-1"></i>
                         <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity"></span>
                     </a>
                     
-                    <a href="{% url 'cart' %}" class="btn btn-sm btn-outline-dark" title="view more">
+                    <a href="{% url 'product' product.name %}" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark" title="view more">
                         <i class="fa-solid fa-eye"></i>
                         <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity"></span>
                     </a>
@@ -96,20 +97,34 @@
     <br><br><br><br><br><br><br><br>
 
     
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" class="expandable-image" style="max-width: 150px;">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    delay: { "show": 5, "hide": 5 } // Set delay here as well
+                });
+            });
+
+            // img expand
+            var expandableImage = document.querySelector('.expandable-image');
+
+            expandableImage.addEventListener('mouseover', function() {
+                this.classList.add('expanded');
+            });
+
+            expandableImage.addEventListener('mouseout', function() {
+                this.classList.remove('expanded');
+            });
+        });
+    </script>
+    
 
 
 {% endblock %}
-<!-- Initialize tooltips with Bootstrap -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl, {
-                delay: { "show": 5, "hide": 5 } // Set delay here as well
-            });
-        });
-    });
-</script>
 
 
 

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Product
+from django.shortcuts import get_object_or_404
 
 # #the registration
 # from .forms import RegistrationForm
@@ -23,8 +24,11 @@ def index(request):
 
 
 
-def product_view(request):
-    return render(request, "base/product.html")
+def product_view(request, name):
+    product = Product.objects.get(name=name)
+    return render(request, "base/product.html", {'product':product})
+
+
 
 def product_view2(request):
     product = Product.objects.filter()
@@ -40,24 +44,3 @@ def privacy_policy_view(request):
 
 def terms_service_view(request):
     return render(request, "base/terms_of_service.html" )
-# def register(request):
-#     pass
-    # if request.method == 'POST':
-    #     form = RegistrationForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         username = form.cleaned_data.get('username')
-    #         return redirect('home-page')
-    # else:
-    #     form = RegistrationForm()
-    
-    # context = {'form': form}
-    # return render(request, 'base/register.html', context)
-
-
-
-# def login_func(request):
-#     return redirect(request, "base/login.html", {})
-
-# def logout_func(request):
-#     pass

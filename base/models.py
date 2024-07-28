@@ -55,11 +55,11 @@ class Product(models.Model):
         EUR = 'EUR', '€'
         USD = 'USD', '$'
         ALL = 'ALL', 'L'
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=300)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     price = models.DecimalField(default=0, decimal_places=2, max_digits=6, validators=[validate_non_negative])
-    new_price = models.DecimalField(default=0, null=True, decimal_places=2, max_digits=6)
+    new_price = models.DecimalField(default=0, null=True, decimal_places=2, max_digits=6, validators=[validate_non_negative])
     discount_percentage = models.IntegerField(null=True)
     currency = models.CharField(max_length=5, choices=Currency.choices, default=Currency.ALL)
 
@@ -79,6 +79,14 @@ class Product(models.Model):
             return round((discount_amount / self.price) * 100)
         return None
 
+
+    def check_for_discount(self):
+        if self.new_price != 0:
+            self.new_price = True
+        else:
+            self.new_price = False
+
+        
     def save(self, *args, **kwargs):
         if self.quantity == 0:
             self.out_of_sale = True
