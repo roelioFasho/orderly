@@ -1,1 +1,19 @@
+{% extends 'base/base.html' %}
+{% load static %}
 <h1>wishlist page</h1>
+
+{% block content %}
+<h1>Your Wishlist</h1>
+<ul>
+    {% for item in wishlist_items %}
+        <li>
+            <h2>{{ item.product.name }}</h2>
+            <p>{{ item.product.description }}</p>
+            <p>Price: ${{ item.product.price }}</p>
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 100px;">
+        </li>
+    {% empty %}
+        <p>Your wishlist is empty.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

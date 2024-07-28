@@ -15,7 +15,7 @@ def login_view(request):
             # Redirect to a success page.
             message = messages.success(request, f"Welcome {username}!")
             return redirect('home')
-            # message = messages.success(request, ("Welcome!"))
+            
             
         else:
             message = messages.error(request, "Try again!")

@@ -5,6 +5,55 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h3>{{ product.name }}</h3>
+    <style>
+         .product-item {
+            width: 250px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .product img {
+            width: 200px;
+            aspect-ratio: 1 / 1;
+            height: auto;
+        }
+        .product h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .product p {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+    <div class="product-item">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
+        {% endif %}
+        <h5>{{ product.name }}</h5>
+        <p>{{ product.description }}</p>
+        <p>{{ product.date_posted }}</p>
+        {% if product.is_discount %}
+            <p>was: {{ product.get_currency_display }}  {{ product.price }}</p>
+            <p>is: {{ product.currency}}  {{ product.new_price }}</p>
+
+        {% else %}
+            <p>{{ product.get_currency_display }}  {{ product.price }}</p>
+            <p>{{ product.currency}}  {{ product.price }}</p>
+
+        {% endif %}
+
+        {% if product.out_of_sale %}
+            <p>PRODUCT IS OUT OF STOCK!</p>
+        
+
+        {% endif %}
+
+
+    </div>
 
 {% endblock %}
