@@ -36,6 +36,8 @@ def wish_view(request):
 
 def privacy_policy_view(request):
     return render(request, "base/privacy_policy.html" )
+
+
 def terms_service_view(request):
     return render(request, "base/terms_of_service.html" )
 # def register(request):
