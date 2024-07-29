@@ -1,15 +1,18 @@
 from base.models import Product
 from django.db import models
+from django.contrib.auth.models import User
+
+from django.utils import timezone
 
 
-
-class Cart(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    def __str__(self):
-        return f'Cart {self.id}'
+# class Cart(models.Model):
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     def __str__(self):
+#         return f'Cart {self.id}'
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    total = models.FloatField
+    quantity = models.PositiveIntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
-        return f'{self.total}'
+        return f'{self.product}'

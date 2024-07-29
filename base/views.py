@@ -30,29 +30,25 @@ def product_view2(request):
 
 
 @require_POST
+@login_required
 def add_to_wishlist(request):
     product_id = request.POST.get('product_id')
     product = get_object_or_404(Product, id=product_id)
     wishlist, created = Wishlist.objects.get_or_create(user=request.user, product=product)
     
     if created:
-        # messages.success(request, f"{product.name} has been added to your wishlist.")
         return JsonResponse({'status': 'success', 'message': 'Product added to wishlist.'})
     else:
-        # messages.success(request, f"{product.name} has been added to your wishlist.")
         return JsonResponse({'status': 'info', 'message': 'Product is already in your wishlist.'})
-
 
 @login_required
 def wishlist_display(request):
-    # Get the wishlist items for the current user
     wishlist_items = Wishlist.objects.filter(user=request.user)
-    # Get the product details for each wishlist item
     products = [item.product for item in wishlist_items]
-    return render(request, 'base/wishlist.html', {'wishlist_items': wishlist_items, "products": products})
+    for product in products:
+        print(product.name)
 
-
-
+    # return render(request, 'base/wishlist.html', {'products': products})
 
 # @login_required
 # def wishlist_view(request, id):
@@ -106,6 +102,19 @@ def wishlist_display(request):
 
 #     return (request, context)
 
+
+
+"""
+from base.models import Wishlist
+from django.contrib.auth.models import User
+
+user = User.objects.get(username='admin')
+wishlist_items = Wishlist.objects.filter(user=user)
+ab =[item for item in wishlist_items]
+    print(item.product.name)
+   
+
+"""
     
 
 def privacy_policy_view(request):

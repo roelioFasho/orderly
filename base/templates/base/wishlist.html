@@ -1,19 +1,24 @@
 {% extends 'base/base.html' %}
 {% load static %}
-<h1>wishlist page</h1>
+
+{% block title %}Your Wishlist{% endblock %}
 
 {% block content %}
-<h1>Your Wishlist</h1>
-<ul>
-    {% for item in wishlist_items %}
-        <li>
-            <h2>{{ item.product.name }}</h2>
-            <p>{{ item.product.description }}</p>
-            <p>Price: ${{ item.product.price }}</p>
-            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 100px;">
-        </li>
-    {% empty %}
-        <p>Your wishlist is empty.</p>
-    {% endfor %}
-</ul>
+<div class="container">
+    <h1>Your Wishlist</h1>
+    <ul>
+        {% for product in products %}
+            <li>
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Price: ${{ product.price }}</p>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100px;">
+                {% endif %}
+            </li>
+        {% empty %}
+            <p>Your wishlist is empty.</p>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

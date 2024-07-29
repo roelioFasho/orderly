@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
 # Creafrom django.shortcuts import render, get_object_or_404, redirect
-from .models import Cart, CartItem
+from .models import CartItem
 from base.models import Product
 
 
@@ -10,14 +10,12 @@ from base.models import Product
 from django.shortcuts import render, redirect
 from .models import Product, CartItem
  
-def product_list(request):
-    products = Product.objects.all()
-    return render(request, 'myapp/index.html', {'products': products})
+
  
 def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
-    return render(request, 'myapp/cart.html', {'cart_items': cart_items, 'total_price': total_price})
+    return render(request, 'cart/cart.html', {'cart_items': cart_items, 'total_price': total_price})
  
 def add_to_cart(request, product_id):
     product = Product.objects.get(id=product_id)
