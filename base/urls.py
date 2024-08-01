@@ -10,8 +10,7 @@ urlpatterns = [
     path('wishlist/', views.wishlist_display, name='wishlist_display1'),
     
 
-    # path('search-bar/',views.search_bar, name='search-bar' ),
-
+    path('search-bar/',views.search_bar, name='search-bar'),
 ]
 
 

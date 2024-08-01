@@ -128,3 +128,11 @@ def privacy_policy_view(request):
 
 def terms_service_view(request):
     return render(request, "base/terms_of_service.html" )
+
+def search_bar(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        return render(request, 'base/search_bar.html',
+        {'searched':searched})
+    else:
+        return render(request, 'base/search_bar.html',{})

@@ -1,9 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
 
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
 <div class="login-container content">
     <h1>Register</h1>
-    <form action="" method="POST" class="needs-validation" novalidate>
+    <br action="" method="POST" class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="form-group">
             {{ form.username.label_tag }}
@@ -12,7 +75,6 @@
                 Please enter a valid username.
             </div>
         </div>
-        <br>
         <div class="form-group">
             {{ form.email.label_tag }}
             {{ form.email }}
@@ -38,8 +100,9 @@
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Register</button>
+        <br></br>
         <a href="{% url 'home' %}">Home</a>
     </form>
 </div>
-
+</html>
 

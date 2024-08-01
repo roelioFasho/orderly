@@ -1,5 +1,3 @@
-
-
 <header>
     <h1>Game Store</h1>
     {% if user.is_superuser %}
@@ -61,8 +59,10 @@
                 </ul>
 
                 <!-- Space for the search bar -->
-                <form class="d-flex me-auto">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex me-auto" method=POST action="{% url 'search-bar' %}">
+                    {% csrf_token %}
+
+                    <input class="form-control me-2" type="search" placeholder="Search Game Store" aria-label="Search" name ="searched">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
 
