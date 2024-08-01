@@ -19,13 +19,11 @@ def login_view(request):
             
         else:
             message = messages.error(request, "Try again!")
-            # Return an 'invalid login' error message.  
             return redirect('login')
         
     
     else:
-
-        return render(request, 'members/login.html')
+        return render(request, 'registration/login.html')
 
 
 
@@ -48,5 +46,5 @@ def register_view(request):
         form = UserCreationForm()
     
     context = {'form': form}
-    return render(request, 'members/register.html', context)
+    return render(request, 'registration/register.html', context)
 

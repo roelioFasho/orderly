@@ -11,7 +11,14 @@ from django.contrib import messages
 
 def index(request):
     product = Product.objects.filter()
-    return render(request, "base/home.html", {'products':product} )
+    return render(request, "base/home.html", {'products':product})
+
+def privacy_policy_view(request):
+    return render(request, "base/privacy_policy.html" )
+
+
+def terms_service_view(request):
+    return render(request, "base/terms_of_service.html" )
 
 
 
@@ -21,32 +28,30 @@ def product_view(request, name):
 
 
 
-def product_view2(request):
-    product = Product.objects.filter()
-    return render(request, "base/login.html", {'products':product})
 
 
-
-
-
-@require_POST
-@login_required
-def add_to_wishlist(request):
-    product_id = request.POST.get('product_id')
-    product = get_object_or_404(Product, id=product_id)
-    wishlist, created = Wishlist.objects.get_or_create(user=request.user, product=product)
-    
-    if created:
-        return JsonResponse({'status': 'success', 'message': 'Product added to wishlist.'})
-    else:
-        return JsonResponse({'status': 'info', 'message': 'Product is already in your wishlist.'})
-
-@login_required
+@login_required(login_url="/members/login/")
 def wishlist_display(request):
-    wishlist_items = Wishlist.objects.filter(user=request.user)
-    products = [item.product for item in wishlist_items]
-    for product in products:
-        print(product.name)
+    return(request, 'base/wishlist.html')
+
+# @require_POST
+# @login_required
+# def add_to_wishlist(request):
+#     product_id = request.POST.get('product_id')
+#     product = get_object_or_404(Product, id=product_id)
+#     wishlist, created = Wishlist.objects.get_or_create(user=request.user, product=product)
+    
+#     if created:
+#         return JsonResponse({'status': 'success', 'message': 'Product added to wishlist.'})
+#     else:
+#         return JsonResponse({'status': 'info', 'message': 'Product is already in your wishlist.'})
+
+# @login_required
+# def wishlist_display(request):
+#     wishlist_items = Wishlist.objects.filter(user=request.user)
+#     products = [item.product for item in wishlist_items]
+#     for product in products:
+#         print(product.name)
 
     # return render(request, 'base/wishlist.html', {'products': products})
 

@@ -1,0 +1,21 @@
+<div class="login-container">
+    <h1>Login</h1>
+    <form action="{% url 'login_url' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <p>Don't have an account? <a href="{% url 'register_url' %}">Register</a>.</p>
+        <a href="{% url 'home' %}">home</a></p>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+

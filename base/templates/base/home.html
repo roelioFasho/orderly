@@ -34,10 +34,8 @@
 
 </style>
 
-<h4>home2</h4>
 
 
-<div class="container">
     <div class="product">
         {% for product in products %}
             <div class="product-item">
@@ -66,21 +64,14 @@
 
                 
 
-                <a href="#" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark me-2 add-to-wishlist" title="add to wishlist">
-                    <i class="fa fa-heart"></i> <!-- Font Awesome heart icon -->
-                </a>
                 
-                <a href="{% url 'view_cart' %}" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark" title="add to cart">
-                    <i class="bi-cart-fill me-1"></i>
-                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity"></span>
-                </a>
                 
                 <a href="{% url 'product_view1' product.name %}" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark" title="view more">
                     <i class="fa-solid fa-eye"></i>
                     <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity"></span>
                 </a>
                 
-                <!-- href="{% url 'cart:add_to_cart' product.id %}" -->
+                
 
             </div>
 
@@ -111,31 +102,31 @@
         });
 
         // Initialize AJAX handling for wishlist button
-        $(document).ready(function() {
-            $('.add-to-wishlist').click(function(event) {
-                event.preventDefault(); // Prevent the default link behavior
-                var productId = $(this).data('product-id');
+        // $(document).ready(function() {
+        //     $('.add-to-wishlist').click(function(event) {
+        //         event.preventDefault(); // Prevent the default link behavior
+        //         var productId = $(this).data('product-id');
 
-                $.ajax({
-                    type: 'POST',
-                    url: '{% url "add_to_wishlist" %}',
-                    data: {
-                        'product_id': productId,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            alert(response.message); // Show success message
-                        } else {
-                            alert(response.message); // Show info message
-                        }
-                    },
-                    error: function() {
-                        alert('An error occurred.');
-                    }
-                });
-            });
-        });
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: 
+        //             data: {
+        //                 'product_id': productId,
+        //                 'csrfmiddlewaretoken': '{{ csrf_token }}'
+        //             },
+        //             success: function(response) {
+        //                 if (response.status === 'success') {
+        //                     alert(response.message); // Show success message
+        //                 } else {
+        //                     alert(response.message); // Show info message
+        //                 }
+        //             },
+        //             error: function() {
+        //                 alert('An error occurred.');
+        //             }
+        //         });
+        //     });
+        // });
     });
 </script>
 

@@ -53,6 +53,15 @@
 
         {% endif %}
 
+        <a href="#" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark me-2 add-to-wishlist" title="add to wishlist">
+            <i class="fa fa-heart"></i> <!-- Font Awesome heart icon -->
+        </a>
+        
+        <a href="{% url 'viewcart_url' %}" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark" title="add to cart">
+            <i class="bi-cart-fill me-1"></i>
+            <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity"></span>
+        </a>
+
 
     </div>
 
