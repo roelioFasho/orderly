@@ -1,38 +1,122 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block content %}
-    <style>
-        .gameedit{
-            align-content: center;
-            justify-content: center;
-            display: flex;
-        }
-    </style>
-    <br>
-    <h1 class="gameedit">Available Video Game</h1>
-    <br>
-    <div class="product">
-        {% for item in products %}
+<style>
+    .gameedit {
+        align-content: center;
+        justify-content: center;
+        display: flex;
+        margin-top: 15px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto; /* Center horizontally */
+        max-width: 1200px; /* Adjust as needed */
+        padding: 0 15px; /* Add padding to ensure content does not touch container edges */
+        box-sizing: border-box; /* Ensure padding is included in the width */
+    }
+
+    .product {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Space between product items */
+        justify-content: center; /* Center product items within the container */
+    }
+
+    .product-item {
+        width: calc(33.333% - 20px); /* Adjust width for responsiveness */
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+        overflow: hidden; /* Hide overflowed content */
+        text-align: center; /* Center text and other inline elements */
+        max-width: 400px; /* Maximum width for larger screens */
+    }
+
+    .product img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto; /* Center the image */
+    }
+
+    .product h2 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+
+    .product p {
+        font-size: 0.9em;
+        color: #666;
+        margin: 5px 0; /* Margin for spacing */
+        overflow-wrap: break-word; /* Break long words to prevent overflow */
+    }
+
+    .store-info {
+        margin-top: 30px;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .page-link {
+        padding: 10px 15px;
+        margin: 0 5px;
+        border: 1px solid #ccc;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .page-link.active {
+        background-color: #333;
+        color: #fff;
+    }
+
+</style>
+
+<br>
+<h1 class="gameedit">Available Video Game</h1>
+<br>
+<div class="container">
+    <div id="product-container" class="product">
+        {% for product in products %}
             <div class="product-item">
-                {% if item.image %}
-                    <img src="{{ item.image.url }}" alt="{{ item.name }}" title="expand-img" style="max-width: 150px;">
+                <h2>{{ product.category }}</h2>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
                 {% endif %}
-                <h5>{{ item.name }}</h5>
-                <p>{{ item.description }}</p>
-                <p>{{ item.date_posted }}</p>
-                {% if item.is_discount %}
-                    <p>was: {{ item.get_currency_display }} {{ item.price }}</p>
-                    <p>is: {{ item.currency }} {{ item.new_price }}</p>
+                <h5>{{ product.name }}</h5>
+                <p>{{ product.description }}</p>
+                <p>{{ product.subcategory }}</p>
+                <p>{{ product.date_posted }}</p>
+                {% if product.is_discount %}
+                    <p>was: {{ product.get_currency_display }} {{ product.price }}</p>
+                    <p>is: {{ product.currency }} {{ product.new_price }}</p>
                 {% else %}
-                    <p>{{ item.get_currency_display }} {{ item.price }}</p>
-                    <p>{{ item.currency }} {{ item.price }}</p>
+                    <p>{{ product.get_currency_display }} {{ product.price }}</p>
+                    <p>{{ product.currency }} {{ product.price }}</p>
                 {% endif %}
-                {% if item.out_of_sale %}
+                {% if product.out_of_sale %}
                     <p>PRODUCT IS OUT OF STOCK!</p>
                 {% endif %}
+                <a href="{% url 'product_view1' product.name %}" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark" title="view more">
+                    <i class="fa-solid fa-eye"></i>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity"></span>
+                </a>
             </div>
-        {% empty %}
-            <p>No products found in this category.</p>
         {% endfor %}
     </div>
+
 {% endblock %}

@@ -85,6 +85,7 @@
                 {% endif %}
                 <h5>{{ product.name }}</h5>
                 <p>{{ product.description }}</p>
+                <p>{{ product.subcategory }}</p>
                 <p>{{ product.date_posted }}</p>
                 {% if product.is_discount %}
                     <p>was: {{ product.get_currency_display }} {{ product.price }}</p>
