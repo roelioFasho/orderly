@@ -52,14 +52,34 @@
     .store-info {
         margin-top: 30px;
     }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .page-link {
+        padding: 10px 15px;
+        margin: 0 5px;
+        border: 1px solid #ccc;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .page-link.active {
+        background-color: #333;
+        color: #fff;
+    }
 </style>
 
-
 <div class="container">
-    <div class="product">
+    <div id="product-container" class="product">
         {% for product in products %}
             <div class="product-item">
-                <h2>CATEGORY {{ product.category }}</h2>
+                <h2>{{ product.category }}</h2>
                 {% if product.image %}
                     <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
                 {% endif %}
@@ -84,6 +104,10 @@
         {% endfor %}
     </div>
 
+    <div class="pagination">
+        <!-- Page links will be generated dynamically -->
+    </div>
+
     <div class="store-info">
         <h1 id="about">Store Info</h1>
         <p>We carry an amazing selection of next-gen video games. We also offer a complete disk repair department, using only the highest quality equipment. Our store is a cool and original game store like no other game store you have ever seen.</p>
@@ -101,6 +125,44 @@
                 delay: { "show": 500, "hide": 100 } // Set delay (milliseconds)
             });
         });
+
+        // Pagination logic
+        const productsPerPage = 12;
+        const productContainer = document.getElementById('product-container');
+        const productItems = Array.from(productContainer.children);
+        const totalPages = Math.ceil(productItems.length / productsPerPage);
+        const paginationContainer = document.querySelector('.pagination');
+
+        function showPage(page) {
+            for (let i = 0; i < productItems.length; i++) {
+                productItems[i].style.display = 'none';
+            }
+            const start = (page - 1) * productsPerPage;
+            const end = start + productsPerPage;
+            for (let i = start; i < end && i < productItems.length; i++) {
+                productItems[i].style.display = 'block';
+            }
+            document.querySelectorAll('.page-link').forEach(link => link.classList.remove('active'));
+            document.querySelector(`.page-link[data-page="${page}"]`).classList.add('active');
+        }
+
+        function createPagination() {
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = document.createElement('a');
+                pageLink.className = 'page-link';
+                pageLink.textContent = i;
+                pageLink.setAttribute('data-page', i);
+                pageLink.href = '#';
+                pageLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    showPage(i);
+                });
+                paginationContainer.appendChild(pageLink);
+            }
+        }
+
+        createPagination();
+        showPage(1);
     });
 </script>
 

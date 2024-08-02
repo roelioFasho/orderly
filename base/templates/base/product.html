@@ -5,31 +5,56 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <style>
-         .product-item {
-            width: 150px;
-            height: 400px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .product img {
-            width: 200px;
-            aspect-ratio: 1 / 1;
-            height: auto;
-        }
-        .product h2 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        .product p {
-            font-size: 0.9em;
-            color: #666;
-        }
-    </style>
+<style>
+    .container {
+        margin-top: 15px;
+        max-width: 1200px; /* Adjust as needed */
+        padding: 0 15px; /* Add padding to ensure content does not touch container edges */
+        box-sizing: border-box; /* Ensure padding is included in the width */
+    }
+
+    .product {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Space between product items */
+    }
+
+    .product-item {
+        width: calc(33.333% - 20px); /* Adjust width for responsiveness */
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+        overflow: hidden; /* Hide overflowed content */
+        text-align: center; /* Center text and other inline elements */
+        max-width: 400px; /* Maximum width for larger screens */
+    }
+
+    .product img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto; /* Center the image */
+    }
+
+    .product h2 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+
+    .product p {
+        font-size: 0.9em;
+        color: #666;
+        margin: 5px 0; /* Margin for spacing */
+        overflow-wrap: break-word; /* Break long words to prevent overflow */
+    }
+
+    .store-info {
+        margin-top: 30px;
+    }
+</style>
     <div class="product-item">
         {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
