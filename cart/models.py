@@ -12,7 +12,7 @@ from django.utils import timezone
 class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return f'{self.product}'

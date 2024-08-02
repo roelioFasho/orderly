@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        .gameedit{
+            align-content: center;
+            justify-content: center;
+            display: flex;
+        }
+    </style>
+    <br>
+    <h1 class="gameedit">Available Console</h1>
+    <br>
+    <div class="product">
+        {% for item in products %}
+            <div class="product-item">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" title="expand-img" style="max-width: 150px;">
+                {% endif %}
+                <h5>{{ item.name }}</h5>
+                <p>{{ item.description }}</p>
+                <p>{{ item.date_posted }}</p>
+                {% if item.is_discount %}
+                    <p>was: {{ item.get_currency_display }} {{ item.price }}</p>
+                    <p>is: {{ item.currency }} {{ item.new_price }}</p>
+                {% else %}
+                    <p>{{ item.get_currency_display }} {{ item.price }}</p>
+                    <p>{{ item.currency }} {{ item.price }}</p>
+                {% endif %}
+                {% if item.out_of_sale %}
+                    <p>PRODUCT IS OUT OF STOCK!</p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No products found in this category.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

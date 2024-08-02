@@ -25,7 +25,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'categories'
+        verbose_name_plural = 'Categories'
 
 
 
@@ -57,6 +57,8 @@ class Product(models.Model):
         ALL = 'ALL', 'L'
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=300)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     price = models.DecimalField(default=0, decimal_places=2, max_digits=6, validators=[validate_non_negative])
     new_price = models.DecimalField(default=0, null=True, decimal_places=2, max_digits=6, validators=[validate_non_negative])

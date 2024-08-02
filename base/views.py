@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import JsonResponse
 
-from .models import Product, Wishlist
+from .models import Category, Product, Wishlist
 from django.contrib import messages
 
 
@@ -29,10 +29,45 @@ def product_view(request, name):
 
 
 
-
 @login_required(login_url="/members/login/")
 def wishlist_display(request):
     return(request, 'base/wishlist.html')
+
+
+
+# def game_view(request):
+#     product = Product.objects.filter()
+#     # category_name = 'VideoGame'
+#     # products = Product.objects.filter(name=category_name)
+#     # if products is  None:
+        
+#     return render(request, 'base/games.html', {'products': product})
+
+
+def game_view(request):
+    category = Category.objects.filter(name='Video Game').first()   
+    if not category:
+        return render(request, 'base/games.html', {'products': [], 'searched': 'Video Games', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/games.html', {'products': products, 'searched': 'Video Games'})
+
+
+def console_view(request):
+    category = Category.objects.filter(name='Console').first()    
+    if not category:
+        return render(request, 'base/console.html', {'products': [], 'searched': 'Console', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/console.html', {'products': products, 'searched': 'Console'})
+
+
+def accessories_view(request):
+    category = Category.objects.filter(name='Accessories').first()    
+    if not category:
+        return render(request, 'base/accessories.html', {'products': [], 'searched': 'Accessories', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/accessories.html', {'products': products, 'searched': 'Accessories'})
+
+
 
 # @require_POST
 # @login_required
@@ -132,7 +167,9 @@ def terms_service_view(request):
 def search_bar(request):
     if request.method == "POST":
         searched = request.POST['searched']
+        product = Product.objects.filter(name__contains=searched)
         return render(request, 'base/search_bar.html',
-        {'searched':searched})
+        {'searched':searched,
+         'product':product})
     else:
         return render(request, 'base/search_bar.html',{})

@@ -1,17 +1,38 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block content %}
-    <center>
+    <style>
+        .h1{
+            align-content: center;
+            justify-content: center;
+            display: flex;
+        }
+    </style>
+    <br>
     {% if searched %}
-            <h1>You Searched For {{ searched }}</h1>   
-        {% else %}
-            <h1>You Searched For..</h1>
-        {% endif %}
-
-    </center>
-
+        <h1 class="h1">You Searched For {{ searched }}</h1> 
+        <br>
+        <div class="product">
+            {% for item in product %}
+                <div class="product-item">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}" title="expand-img" style="max-width: 150px;">  
+                    {% endif %}
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.description }}</p>
+                    <p>{{ item.date_posted }}</p>
+                    {% if item.is_discount %}
+                        <p>was: {{ item.get_currency_display }} {{ item.price }}</p>
+                        <p>is: {{ item.currency }} {{ item.new_price }}</p>
+                    {% else %}
+                        <p>{{ item.get_currency_display }} {{ item.price }}</p>
+                        <p>{{ item.currency }} {{ item.price }}</p>
+                    {% endif %}
+                    {% if item.out_of_sale %}
+                        <p>PRODUCT IS OUT OF STOCK!</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
-
-
-
-
