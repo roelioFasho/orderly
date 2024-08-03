@@ -174,3 +174,38 @@ def search_bar(request):
         messages.success
     else:
         return render(request, 'base/search_bar.html',{})
+    
+def rolep_view(request):
+    category = Category.objects.filter(name='Video Game').first()
+    if not category:
+        return render(request, 'base/rolep.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/rolep.html', {'products': products, 'searched': 'Video Game'})
+
+# def rolep_view(request):
+#     category = get_object_or_404(Category, name='Video Game')
+#     subcategory_name = 'Action role-playing game'
+#     products = Product.objects.filter(category=category, subcategory=subcategory_name)
+#     return render(request, 'base/rolep.html', {'products': products, 'searched': 'Action role-playing game'})
+
+
+def singlep_view(request):
+    category = Category.objects.filter(name='Video Game').first()
+    if not category:
+        return render(request, 'base/singlep.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/singlep.html', {'products': products, 'searched': 'Video Game'})
+
+def multip_view(request):
+    category = Category.objects.filter(name='Video Game').first()
+    if not category:
+        return render(request, 'base/multip.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/multip.html', {'products': products, 'searched': 'Video Game'})
+
+def merch_view(request):
+    category = Category.objects.filter(name='Accessories').first()
+    if not category:
+        return render(request, 'base/merch.html', {'products': [], 'searched': 'Accessories', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/merch.html', {'products': products, 'searched': 'Accessories'})
