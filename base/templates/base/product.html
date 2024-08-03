@@ -87,8 +87,17 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> 
 
     <script>
+        const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+        
         $(document).on('click', '#add-to-cart', function(e){
             e.preventDefault();
+            if (!isAuthenticated) {
+                const currentLocation = new URL(window.location.href);
+                const currentPath = currentLocation.pathname;
+                location.replace(`/members/login/?next=${currentPath}`);
+                return;
+            }
+
             var productId = $(this).data('product-id');
             var productQty = $('#qty-cart').val();
             $.ajax({
@@ -102,11 +111,7 @@
                 },
                 success: function(json){
                     document.getElementById("cart_quantity").textContent = json.qty;
-                    // location.reload();
                     console.log(json);
-                    const currentLocation = new URL(window.location.href);
-                    const currentPath = currentLocation.pathname;
-                    location.replace(`/members/login/?next=${currentPath}`);
                 },
                 error: function(xhr, errmsg, err){
                     console.log(errmsg);
