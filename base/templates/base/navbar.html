@@ -70,9 +70,9 @@
                     <a href="{% url 'login' %}" class="btn btn-sm btn-outline-dark me-2">
                         <i class="far fa-user-circle"></i> <!-- Font Awesome user circle icon -->
                     </a>
-                    <a href="{% url 'viewcart_url' %}" class="btn btn-sm btn-outline-dark">
+                    <a href="{% url 'cartview_url' %}" class="btn btn-sm btn-outline-dark">
                         <i class="bi-cart-fill me-1"></i>
-                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart| length}}</span>
                     </a>
                 </div>
             </div>

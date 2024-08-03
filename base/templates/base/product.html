@@ -1,8 +1,89 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<<<<<<< HEAD
+    <style>
+        .product-item {
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .product img {
+            width: 200px;
+            aspect-ratio: 1 / 1;
+            height: auto;
+        }
+        .product h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .product p {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .quantity-container {
+            margin-top: 10px;
+        }
+        .quantity-container .col-md-2 {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .quantity-container .form-select {
+            display: inline-block;
+            width: auto;
+        }
+    </style>
+
+    <div class="product-item">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
+        {% endif %}
+        <h5>{{ product.name }}</h5>
+        <p>{{ product.description }}</p>
+        <p>{{ product.date_posted }}</p>
+        {% if product.is_discount %}
+            <p>was: {{ product.get_currency_display }} {{ product.price }}</p>
+            <p>is: {{ product.currency }} {{ product.new_price }}</p>
+        {% else %}
+            <p>{{ product.get_currency_display }} {{ product.price }}</p>
+            <p>{{ product.currency }} {{ product.price }}</p>
+        {% endif %}
+
+        {% if product.out_of_sale %}
+            <p>PRODUCT IS OUT OF STOCK!</p>
+        {% endif %}
+
+        <a href="#" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark me-2 add-to-wishlist" title="add to wishlist">
+            <i class="fa fa-heart"></i>
+        </a>
+
+        <a href="{% url 'home' %}" class="btn btn-sm btn-outline-dark me-2">Home</a>
+
+        <a href="#" data-product-id="{{ product.id }}" class="btn btn-sm btn-outline-dark me-2 add-to-cart">
+            <i class="bi-cart-fill me-1"></i> 
+        </a>
+
+        <div class="quantity-container">
+            <div class="col-md-2">Quantity:</div>
+            <div class="col-md-2">
+                <select class="form-select form-select-sm" id="qty-cart">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+=======
 <style>
     .container {
         margin-top: 15px;
@@ -90,7 +171,38 @@
         {% else %}
             <p>No products found in this category.</p>
         {% endif %}
+>>>>>>> 3163102b651d47dd0aaab47083ed2b8ee94f42f6
     </div>
 </div>
 
+<<<<<<< HEAD
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> 
+
+    <script>
+        $(document).on('click', '.add-to-cart', function(e){
+            e.preventDefault();
+            var productId = $(this).data('product-id');
+            var productQty = $('#qty-cart').val();
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'cart_add_url' %}",
+                data: {
+                    product_id: productId,
+                    product_qty: productQty,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json){
+                    document.getElementById("cart_quantity").textContent = json.qty;
+                    location.reload();
+                },
+                error: function(xhr, errmsg, err){
+                    console.log(errmsg);
+                }
+            });
+        });
+    </script>
+=======
+>>>>>>> 3163102b651d47dd0aaab47083ed2b8ee94f42f6
 {% endblock %}

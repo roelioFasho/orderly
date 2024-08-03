@@ -171,6 +171,7 @@ def search_bar(request):
         return render(request, 'base/search_bar.html',
         {'searched':searched,
          'product':product})
+        messages.success
     else:
         return render(request, 'base/search_bar.html',{})
     

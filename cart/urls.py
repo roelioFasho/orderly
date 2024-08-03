@@ -3,11 +3,13 @@ from django.urls import path
 from . import views
 
 
-
-
 urlpatterns = [
-    path('cart/', views.cart_view, name='viewcart_url'),
-    # path('add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
-    # path('remove/<int:item_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('', views.cart_view , name='cartview_url'),
+    path('add/', views.cart_add , name='cart_add_url'),
+    path('delete/', views.cart_delete , name='cart_delete_url'),
+    path('update/', views.cart_update , name='cart_update_url'),
+
+
+
 ]
 

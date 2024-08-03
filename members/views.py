@@ -34,7 +34,6 @@ def logout_view(request):
     return redirect('home')
 
 def register_view(request):
-
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():

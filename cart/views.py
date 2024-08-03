@@ -3,13 +3,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 # Creafrom django.shortcuts import render, get_object_or_404, redirect
 from .models import CartItem
 from base.models import Product
+from .cart import Cart
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
-
-
-from django.shortcuts import render, redirect
-from .models import Product, CartItem
- 
 
  
 # def view_cart(request):
@@ -33,27 +31,52 @@ from .models import Product, CartItem
 # def home(request):
 #     return redirect('home')
 
+
+# @login_required(login_url="/members/login/")
 def cart_view(request):
+    #get cart
+    cart = Cart(request)
+    cart_products = cart.get_products
+    quantities = cart.get_quantities
+    return render(request, 'cart/cart.html',{'cart_products': cart_products, 'quantities': quantities})
+
+# @login_required(login_url="/members/login/")
+def cart_add(request):
+    cart = Cart(request)
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        product_qty = int(request.POST.get('product_qty'))
+
+        product = get_object_or_404(Product, id=product_id)
+        
+
+        cart.add(product=product, quantity=product_qty)
+
+        #get cart quantity
+        cart_quantity = cart.__len__()
+
+        # respone = JsonResponse({"Product name: ": product.name})
+        respone = JsonResponse({"qty": cart_quantity})
+
+        return respone
+
     return render(request, 'cart/cart.html')
-# def add_to_cart(request, product_id):
-#     product = get_object_or_404(Product, id=product_id)
-#     cart_id = request.session.get('cart_id')
-#     if not cart_id:
-#         cart = Cart.objects.create()
-#         request.session['cart_id'] = cart.id
-#     else:
-#         cart = Cart.objects.get(id=cart_id)
 
-#     cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-#     if not created:
-#         cart_item.total += Product.price
-#         cart_item.save()
+# @login_required(login_url="/members/login/")
+def cart_delete(request):
+    return render(request, 'cart/cart.html')
 
-#     return redirect('cart:cart_detail')
 
-# def cart_detail(request):
-#     cart_id = request.session.get('cart_id')
-#     if not cart_id:
-#         return render(request, 'cart/cart.html', {'cart': None})
-#     cart = Cart.objects.get(id=cart_id)
-#     return render(request, 'cart/cart.html', {'cart': cart})
+# @login_required(login_url="/members/login/")
+def cart_update(request):
+    cart = Cart(request)
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        product_qty = int(request.POST.get('product_qty'))
+
+        cart.update(product=product_qty, quantity=product_qty)
+        
+
+    response = JsonResponse({'qty': product_qty})
+    return response
+    
