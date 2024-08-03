@@ -54,8 +54,6 @@ class Cart():
     
 
     def update(self, product, quantity):
-        print("product:", product)
-        print("quantity:", quantity)
         product_id = str(product)
         product_qty = int(quantity)
 
@@ -65,3 +63,13 @@ class Cart():
         self.session.modified = True
         print("self.cart =", self.cart)
         return self.cart
+    
+
+    def delete(self, product):
+        product_id = str(product)
+
+        # delete from dict/cart
+        if product_id in self.cart:
+            del self.cart[product_id]
+
+        self.session.modified = True

@@ -118,6 +118,7 @@
             </div>
             <a href="{% url 'home' %}" class="btn btn-sm btn-outline-dark me-2">Home</a>
             <a href="#" data-index="{{ product.id }}" class="btn btn-secondary update-cart">Update</a>
+            <a href="#" data-index="{{ product.id }}" class="btn btn-secondary remove-item">Remove</a>
         </div>
     {% endfor %}
 {% else %}
@@ -127,14 +128,40 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 <script>
+    // update cart
     $(document).on('click', '.update-cart', function(e){
+        e.preventDefault();
+        // console.log("THIS:", this);
+        var productid = $(this).data('index'); 
+        console.log("PRODUCT ID:", productid);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_update_url' %}",
+            data: {
+                product_id: productid,
+                product_qty: $('#select' + productid).val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json){
+                // console.log("Received Response:", json);
+            },
+            error: function(xhr, errmsg, err){
+                console.log(errmsg);
+            }
+        });
+    });
+
+
+    // remove item from cart
+    $(document).on('click', '.remove-item', function(e){
         e.preventDefault();
         console.log("THIS:", this);
         var productid = $(this).data('index'); 
         console.log("PRODUCT ID:", productid);
         $.ajax({
             type: 'POST',
-            url: "{% url 'cart_update_url' %}",
+            url: "{% url 'cart_delete_url' %}",
             data: {
                 product_id: productid,
                 product_qty: $('#select' + productid).val(),
