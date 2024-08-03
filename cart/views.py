@@ -40,7 +40,7 @@ def cart_view(request):
     quantities = cart.get_quantities
     return render(request, 'cart/cart.html',{'cart_products': cart_products, 'quantities': quantities})
 
-# @login_required(login_url="/members/login/")
+@login_required(login_url="/members/login/")
 def cart_add(request):
     cart = Cart(request)
     if request.POST.get('action') == 'post':
@@ -53,11 +53,10 @@ def cart_add(request):
         cart.add(product=product, quantity=product_qty)
 
         #get cart quantity
-        cart_quantity = cart.__len__()
+        cart_quantity = len(cart)
 
         # respone = JsonResponse({"Product name: ": product.name})
         respone = JsonResponse({"qty": cart_quantity})
-
         return respone
 
     return render(request, 'cart/cart.html')
@@ -74,9 +73,7 @@ def cart_update(request):
         product_id = int(request.POST.get('product_id'))
         product_qty = int(request.POST.get('product_qty'))
 
-        cart.update(product=product_qty, quantity=product_qty)
-        
-
+        cart.update(product=product_id, quantity=product_qty)   
     response = JsonResponse({'qty': product_qty})
     return response
     

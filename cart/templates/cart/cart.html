@@ -83,6 +83,7 @@
             {% if product.image %}
                 <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
             {% endif %}
+            <h5>{{ product.id }}</h5>
             <h5>{{ product.name }}</h5>
             <p>{{ product.description }}</p>
             <p>{{ product.date_posted }}</p>
@@ -123,26 +124,25 @@
     <h1>The cart is empty</h1>
 {% endif %}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 <script>
     $(document).on('click', '.update-cart', function(e){
         e.preventDefault();
-        var productid = $(this).data('index');
-        var selectedQty = $('#select' + productid).val();  // Corrected selector
-
+        console.log("THIS:", this);
+        var productid = $(this).data('index'); 
+        console.log("PRODUCT ID:", productid);
         $.ajax({
             type: 'POST',
             url: "{% url 'cart_update_url' %}",
             data: {
                 product_id: productid,
-                product_qty: selectedQty,
+                product_qty: $('#select' + productid).val(),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
             success: function(json){
-                location.reload();
+                console.log("Received Response:", json);
             },
             error: function(xhr, errmsg, err){
                 console.log(errmsg);

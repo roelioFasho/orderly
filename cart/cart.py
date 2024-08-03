@@ -54,14 +54,14 @@ class Cart():
     
 
     def update(self, product, quantity):
+        print("product:", product)
+        print("quantity:", quantity)
         product_id = str(product)
         product_qty = int(quantity)
 
-        #get cart
-        ourcart = self.cart
         #update cart/dict
-        ourcart[product_id] = product_qty
+        self.cart[product_id] = product_qty
 
         self.session.modified = True
-        think = self.cart
-        return think
+        print("self.cart =", self.cart)
+        return self.cart
