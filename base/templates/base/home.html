@@ -2,6 +2,7 @@
 
 {% block title %}Home{% endblock %}
 
+
 {% block content %}
 <style>
     .container {
@@ -79,7 +80,6 @@
     <div id="product-container" class="product">
         {% for product in products %}
             <div class="product-item">
-                <h2>{{ product.category }}</h2>
                 {% if product.image %}
                     <img src="{{ product.image.url }}" alt="{{ product.name }}" title="expand-img" style="max-width: 150px;">  
                 {% endif %}
