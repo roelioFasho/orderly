@@ -16,7 +16,8 @@ def cart_view(request):
     cart = Cart(request)
     cart_products = cart.get_products
     quantities = cart.get_quantities
-    return render(request, 'cart/cart.html',{'cart_products': cart_products, 'quantities': quantities})
+    total = cart.total()
+    return render(request, 'cart/cart.html',{'cart_products': cart_products, 'quantities': quantities, 'total':total})
 
 
 #add product to cart
@@ -46,6 +47,7 @@ def cart_add(request):
 # remove itm from cart 
 def cart_delete(request):
     cart = Cart(request)
+    print(f"cart delete {cart}") 
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('product_id'))
         
@@ -63,7 +65,8 @@ def cart_update(request):
         product_id = int(request.POST.get('product_id'))
         product_qty = int(request.POST.get('product_qty'))
 
-        cart.update(product=product_id, quantity=product_qty)   
+        cart.update(product=product_id, quantity=product_qty)  
+        print(f"cart update{cart}") 
     response = JsonResponse({'qty': product_qty})
     return response
     

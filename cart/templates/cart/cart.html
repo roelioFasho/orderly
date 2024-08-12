@@ -13,6 +13,7 @@
         margin-bottom: 20px;
         border-radius: 10px;
         background-color: #f9f9f9;
+        width: 1000px;
     }
 
     .product-item img {
@@ -120,10 +121,17 @@
             <a href="#" data-index="{{ product.id }}" class="btn btn-secondary update-cart">Update</a>
             <a href="#" data-index="{{ product.id }}" class="btn btn-secondary remove-item">Remove</a>
         </div>
+    
     {% endfor %}
+
+    <strong>total: {{ product.get_currency_display }} {{total}}</strong>
+
+
 {% else %}
     <h1>The cart is empty</h1>
 {% endif %}
+
+
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
@@ -144,7 +152,11 @@
                 action: 'post'
             },
             success: function(json){
-                // console.log("Received Response:", json);
+                console.log("Received Response:", json);
+                // Assuming `json` contains updated cart data
+                $('#cart-total').text(json.cart_total);
+                $('#cart-items-count').text(json.items_count);
+                $('#item' + productid + ' .item-total').text(json.item_total);
             },
             error: function(xhr, errmsg, err){
                 console.log(errmsg);
@@ -169,7 +181,7 @@
                 action: 'post'
             },
             success: function(json){
-                console.log("Received Response:", json);
+                // console.log("Received Response:", json);
             },
             error: function(xhr, errmsg, err){
                 console.log(errmsg);

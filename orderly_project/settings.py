@@ -38,15 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.auth.urls',
     "django_extensions",
     'crispy_forms',
     'crispy_bootstrap4',
     'base',
     'members',
     'cart',
-    # 'base.apps.BaseConfig',  # Ensure this is the correct path
-    # 'profile.apps.RegisterConfig',
     
 ]
 
