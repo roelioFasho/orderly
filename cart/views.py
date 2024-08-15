@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
-# Creafrom django.shortcuts import render, get_object_or_404, redirect
 from .models import CartItem
 from base.models import Product
 from .cart import Cart
@@ -9,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
- 
+
 #view cart
 def cart_view(request):
     #get cart
@@ -17,7 +16,11 @@ def cart_view(request):
     cart_products = cart.get_products
     quantities = cart.get_quantities
     total = cart.total()
-    return render(request, 'cart/cart.html',{'cart_products': cart_products, 'quantities': quantities, 'total':total})
+
+    tuple_output = Product.objects.values_list('currency', flat=True).first()
+    product_currency = ''.join(tuple_output)
+
+    return render(request, 'cart/cart.html',{'cart_products': cart_products, 'quantities': quantities, 'total':total, 'product_curr': product_currency})
 
 
 #add product to cart
@@ -66,7 +69,6 @@ def cart_update(request):
         product_qty = int(request.POST.get('product_qty'))
 
         cart.update(product=product_id, quantity=product_qty)  
-        print(f"cart update{cart}") 
     response = JsonResponse({'qty': product_qty})
     return response
     
