@@ -81,15 +81,23 @@ class Product(models.Model):
             return round((discount_amount / self.price) * 100)
         return None
 
-
     def check_for_discount(self):
-        if self.new_price != 0:
-            self.new_price = True
+        # the if stat. checks if new_price is not None or zero and ensures that a new_price has been set and that it is not the default value of zero.
+        if self.new_price and self.new_price < self.price:
+            self.is_discount = True
         else:
-            self.new_price = False
+            self.is_discount = False
+
+
+    # def check_for_discount(self):
+    #     if self.new_price != 0:
+    #         self.new_price = True
+    #     else:
+    #         self.new_price = False
 
         
     def save(self, *args, **kwargs):
+        self.check_for_discount()
         if self.quantity == 0:
             self.out_of_sale = True
         else:

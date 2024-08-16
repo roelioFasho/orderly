@@ -29,9 +29,9 @@ def product_view(request, name):
 
 
 
-@login_required(login_url="/members/login/")
-def wishlist_display(request):
-    return(request, 'base/wishlist.html')
+# @login_required(login_url="/members/login/")
+# def wishlist_display(request):
+#     return(request, 'base/wishlist.html')
 
 
 
