@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import JsonResponse
 
-from .models import Category, Product, Wishlist
+from .models import Category, Product
 from django.contrib import messages
 
 
