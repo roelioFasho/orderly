@@ -55,24 +55,19 @@ class Product(models.Model):
         EUR = 'EUR', '€'
         USD = 'USD', '$'
         ALL = 'ALL', 'L'
+
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=300)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
-    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     price = models.DecimalField(default=0, decimal_places=2, max_digits=6, validators=[validate_non_negative])
     new_price = models.DecimalField(default=0, null=True, decimal_places=2, max_digits=6, validators=[validate_non_negative])
-    discount_percentage = models.IntegerField(null=True)
     currency = models.CharField(max_length=5, choices=Currency.choices, default=Currency.ALL)
-
     date_posted = models.DateField(default=timezone.now)
-    # usage = models.CharField(max_length=600)
     quantity = models.PositiveIntegerField(default=1, null=True, blank=True, validators=[validate_non_negative])
     image = models.ImageField(blank=True, null=True, upload_to='uploads/product/')
-    
-    is_discount = models.BooleanField(default= False) 
+    is_discount = models.BooleanField(default=False)
     out_of_sale = models.BooleanField(default=False)
-
 
     @property
     def discount_percentage(self):
@@ -82,20 +77,11 @@ class Product(models.Model):
         return None
 
     def check_for_discount(self):
-        # the if stat. checks if new_price is not None or zero and ensures that a new_price has been set and that it is not the default value of zero.
         if self.new_price and self.new_price < self.price:
             self.is_discount = True
         else:
             self.is_discount = False
 
-
-    # def check_for_discount(self):
-    #     if self.new_price != 0:
-    #         self.new_price = True
-    #     else:
-    #         self.new_price = False
-
-        
     def save(self, *args, **kwargs):
         self.check_for_discount()
         if self.quantity == 0:
@@ -104,11 +90,9 @@ class Product(models.Model):
             self.out_of_sale = False
         super().save(*args, **kwargs)
 
-
-
-
     def __str__(self):
         return f"{self.name}"
+
     
 
 

@@ -69,6 +69,56 @@ def accessories_view(request):
 
 
 
+def privacy_policy_view(request):
+    return render(request, "base/privacy_policy.html" )
+
+
+def terms_service_view(request):
+    return render(request, "base/terms_of_service.html" )
+
+def search_bar(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        product = Product.objects.filter(name__contains=searched)
+        return render(request, 'base/search_bar.html',
+        {'searched':searched,
+         'product':product})
+        messages.success
+    else:
+        return render(request, 'base/search_bar.html',{})
+    
+def rolep_view(request):
+    category = Category.objects.filter(name='Video Game').first()
+    if not category:
+        return render(request, 'base/rolep.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/rolep.html', {'products': products, 'searched': 'Video Game'})
+
+
+
+
+def singlep_view(request):
+    category = Category.objects.filter(name='Video Game').first()
+    if not category:
+        return render(request, 'base/singlep.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/singlep.html', {'products': products, 'searched': 'Video Game'})
+
+def multip_view(request):
+    category = Category.objects.filter(name='Video Game').first()
+    if not category:
+        return render(request, 'base/multip.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/multip.html', {'products': products, 'searched': 'Video Game'})
+
+def merch_view(request):
+    category = Category.objects.filter(name='Accessories').first()
+    if not category:
+        return render(request, 'base/merch.html', {'products': [], 'searched': 'Accessories', 'error': 'Category not found'})
+    products = Product.objects.filter(category=category)
+    return render(request, 'base/merch.html', {'products': products, 'searched': 'Accessories'})
+
+
 # @require_POST
 # @login_required
 # def add_to_wishlist(request):
@@ -157,30 +207,6 @@ ab =[item for item in wishlist_items]
 """
     
 
-def privacy_policy_view(request):
-    return render(request, "base/privacy_policy.html" )
-
-
-def terms_service_view(request):
-    return render(request, "base/terms_of_service.html" )
-
-def search_bar(request):
-    if request.method == "POST":
-        searched = request.POST['searched']
-        product = Product.objects.filter(name__contains=searched)
-        return render(request, 'base/search_bar.html',
-        {'searched':searched,
-         'product':product})
-        messages.success
-    else:
-        return render(request, 'base/search_bar.html',{})
-    
-def rolep_view(request):
-    category = Category.objects.filter(name='Video Game').first()
-    if not category:
-        return render(request, 'base/rolep.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
-    products = Product.objects.filter(category=category)
-    return render(request, 'base/rolep.html', {'products': products, 'searched': 'Video Game'})
 
 # def rolep_view(request):
 #     category = get_object_or_404(Category, name='Video Game')
@@ -189,23 +215,3 @@ def rolep_view(request):
 #     return render(request, 'base/rolep.html', {'products': products, 'searched': 'Action role-playing game'})
 
 
-def singlep_view(request):
-    category = Category.objects.filter(name='Video Game').first()
-    if not category:
-        return render(request, 'base/singlep.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
-    products = Product.objects.filter(category=category)
-    return render(request, 'base/singlep.html', {'products': products, 'searched': 'Video Game'})
-
-def multip_view(request):
-    category = Category.objects.filter(name='Video Game').first()
-    if not category:
-        return render(request, 'base/multip.html', {'products': [], 'searched': 'Video Game', 'error': 'Category not found'})
-    products = Product.objects.filter(category=category)
-    return render(request, 'base/multip.html', {'products': products, 'searched': 'Video Game'})
-
-def merch_view(request):
-    category = Category.objects.filter(name='Accessories').first()
-    if not category:
-        return render(request, 'base/merch.html', {'products': [], 'searched': 'Accessories', 'error': 'Category not found'})
-    products = Product.objects.filter(category=category)
-    return render(request, 'base/merch.html', {'products': products, 'searched': 'Accessories'})
