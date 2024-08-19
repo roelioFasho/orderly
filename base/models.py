@@ -6,15 +6,15 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 
-# class Costumer(models.Model):
-#     first_name = models.CharField(max_length=50)
-#     last_name =models.CharField(max_length=50)
-#     phone_num = models.CharField(max_length=50)
-#     email =models.EmailField(max_length=120)
-#     password =models.CharField(max_length=50)
+class Costumer(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name =models.CharField(max_length=50)
+    phone_num = models.CharField(max_length=50)
+    email =models.EmailField(max_length=120)
+    password =models.CharField(max_length=50)
     
-#     def __str__(self):
-#         return f"{self.first_name} {self.last_name}"
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 #categories of products
@@ -95,15 +95,25 @@ class Product(models.Model):
 
     
 
+# class CartItem(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='items')
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='items')
+#     quantity = models.PositiveIntegerField(default=1)
+#     added_at = models.DateTimeField(auto_now_add=True)
 
-# class Wishlist(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, default=User)
+#     def __str__(self):
+#         return f'{self.product.name} ({self.quantity})'
+
+# this is not pushed to the db
+# class WishlistItem(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
 #     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     quantity = models.PositiveIntegerField(default=1)
 #     added_at = models.DateTimeField(auto_now_add=True)
 
 
-    # class Meta:
-    #     unique_together = ('user', 'product')
+#     class Meta:
+#         unique_together = ('user', 'product')
 
 
 

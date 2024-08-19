@@ -1,20 +1,22 @@
 from base.models import Product
 
-class Cart():
+class Wishlist():
     def __init__(self, request):
         self.session = request.session
 
         #get request
         self.request = request
         # get the current session key if it exists
-        cart = self.session.get('session_key')
+        wish = self.session.get('session_key')
 
         # if the user is new, no session key. If not create one
         if 'session_key' not in request.session:
-            cart = self.session['session_key'] = {}
+            wish = self.session['session_key'] = {}
+        else:
+            wish = self.session['session_key']
 
-        # makes url the cart is available on all pages of the site
-        self.cart = cart
+        # makes url the wish is available on all pages of the site
+        self.wish = wish
 
 
     
@@ -24,18 +26,18 @@ class Cart():
 
 
         #logic
-        if product_id in self.cart:
+        if product_id in self.wish:
             pass
         else:
-            # self.cart[product_id] = {'price':  str(product.price)}
-            self.cart[product_id] = int(quantity_qty)
+            # self.wish[product_id] = {'price':  str(product.price)}
+            self.wish[product_id] = int(quantity_qty)
 
 
         self.session.modified = True
 
 
     def __len__(self):
-        return(len(self.cart))
+        return(len(self.wish))
     
 
 
@@ -43,9 +45,9 @@ class Cart():
 
     def total(self):
         #get product ids
-        product_id = self.cart.keys()
+        product_id = self.wish.keys()
         products = Product.objects.filter(id__in= product_id)
-        quantities = self.cart
+        quantities = self.wish
         #start with 0
         t = 0
         for key, val in quantities.items():
@@ -60,7 +62,7 @@ class Cart():
 
     def get_products(self):
         #get ids
-        product_ids = self.cart.keys()   
+        product_ids = self.wish.keys()   
         #look at the db
         products = Product.objects.filter(id__in=product_ids)
     
@@ -71,7 +73,7 @@ class Cart():
 
     def get_quantities(self):
         #get ids
-        quantities = self.cart  
+        quantities = self.wish  
         return quantities
     
 
@@ -79,21 +81,21 @@ class Cart():
         product_id = str(product)
         product_qty = int(quantity)
 
-        #update cart/dict
-        self.cart[product_id] = product_qty
+        #update wish/dict
+        self.wish[product_id] = product_qty
 
         self.session.modified = True
-        # print("self.cart =", self.cart)
-        return self.cart
+        # print("self.wish =", self.wish)
+        return self.wish
     
 
     def delete(self, product):
         product_id = str(product)
 
-        # delete from dict/cart
-        if product_id in self.cart:
-            del self.cart[product_id]
-            # print("cart after deleted =", self.cart)
+        # delete from dict/wish
+        if product_id in self.wish:
+            del self.wish[product_id]
+            # print("wish after deleted =", self.wish)
 
         self.session.modified = True
 

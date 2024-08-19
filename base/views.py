@@ -8,6 +8,8 @@ from .models import Category, Product
 from django.contrib import messages
 
 
+# Customer
+
 
 def index(request):
     product = Product.objects.filter()
@@ -25,23 +27,6 @@ def terms_service_view(request):
 def product_view(request, name):
     product = Product.objects.get(name=name)
     return render(request, "base/product.html", {'product':product})
-
-
-
-
-# @login_required(login_url="/members/login/")
-# def wishlist_display(request):
-#     return(request, 'base/wishlist.html')
-
-
-
-# def game_view(request):
-#     product = Product.objects.filter()
-#     # category_name = 'VideoGame'
-#     # products = Product.objects.filter(name=category_name)
-#     # if products is  None:
-        
-#     return render(request, 'base/games.html', {'products': product})
 
 
 def game_view(request):
@@ -117,6 +102,26 @@ def merch_view(request):
         return render(request, 'base/merch.html', {'products': [], 'searched': 'Accessories', 'error': 'Category not found'})
     products = Product.objects.filter(category=category)
     return render(request, 'base/merch.html', {'products': products, 'searched': 'Accessories'})
+
+
+
+
+
+
+# @login_required(login_url="/members/login/")
+# def wishlist_display(request):
+#     return(request, 'base/wishlist.html')
+
+
+
+# def game_view(request):
+#     product = Product.objects.filter()
+#     # category_name = 'VideoGame'
+#     # products = Product.objects.filter(name=category_name)
+#     # if products is  None:
+        
+#     return render(request, 'base/games.html', {'products': product})
+
 
 
 # @require_POST
